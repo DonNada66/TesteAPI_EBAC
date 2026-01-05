@@ -1,0 +1,1000 @@
+{
+	"info": {
+		"_postman_id": "be3d198e-a80c-47f2-be3e-ecbaefc3c10b",
+		"name": "Teste ServeRest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43119356"
+	},
+	"item": [
+		{
+			"name": "Produtos",
+			"item": [
+				{
+					"name": "Listar Produtos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validar produto da lista\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Logitech MX Vertical\");\r",
+									"});\r",
+									"pm.test(\"Status code é 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/produtos",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"produtos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastro de produto",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code é 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"pm.test(\"Validar mensagem de sucesso\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Cadastro realizado com sucesso\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \"Xiaomi POCO F5\",\r\n  \"preco\": 2800,\r\n  \"descricao\": \"Celular\",\r\n  \"quantidade\": 500\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/produtos",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"produtos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Produtos por ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validar produto da lista\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Xiaomi POCO F5\");\r",
+									"});\r",
+									"pm.test(\"Status code é 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/produtos/XskpCzzW3rI03K2D",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"produtos",
+								"XskpCzzW3rI03K2D"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar produto",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Logitech MX Vertical\",\r\n    \"preco\": 400,\r\n    \"descricao\": \"Mouse\",\r\n     \"quantidade\": 382\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/produtos/BeeJh5lz3k6kSIzA",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"produtos",
+								"BeeJh5lz3k6kSIzA"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Excluir produtos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code é 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validar mensagem\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Registro excluído com sucesso\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdhYnJpZWxfcWFAZWJhY3Rlc3RlLmNvbS5iciIsInBhc3N3b3JkIjoidGVzdGUiLCJpYXQiOjE3NjI1MzYyNjYsImV4cCI6MTc2MjUzNjg2Nn0.aYWMkQICBrOFUT2uY3MvXYlw6rvbjjdN7FSWJ2GrGB8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/produtos/wLfUcVfHEWjfGWSJ",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"produtos",
+								"wLfUcVfHEWjfGWSJ"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Usuario",
+			"item": [
+				{
+					"name": "Cenários Positivos",
+					"item": [
+						{
+							"name": "Criar usuário",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Valida Status 201 (Criado)\r",
+											"pm.test(\"Status code é 201\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											"\r",
+											"// Valida mensagem de sucesso\r",
+											"pm.test(\"Mensagem de cadastro com sucesso\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.message).to.eql(\"Cadastro realizado com sucesso\");\r",
+											"\r",
+											"    // SALVAR ID PARA USAR DEPOIS\r",
+											"    pm.collectionVariables.set(\"idUsuario\", jsonData._id);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"Gabriel QA {{$randomInt}}\",\r\n  \"email\": \"gabriel.qa{{$timestamp}}@teste.com\",\r\n  \"password\": \"123456\",\r\n  \"administrador\": \"true\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/usuarios",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"usuarios"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Listar Usuários",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code é 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Tempo de resposta aceitável\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/usuarios/",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"usuarios",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Buscar usuário por ID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code é 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"// Valida se o ID retornado é o mesmo que pedimos\r",
+											"pm.test(\"Validar ID do usuário\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData._id).to.eql(pm.collectionVariables.get(\"idUsuario\"));\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{local}}/usuarios/{{idUsuario}}",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"usuarios",
+										"{{idUsuario}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Editar Usuário - Existente",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code é 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Mensagem de alteração com sucesso\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.message).to.eql(\"Registro alterado com sucesso\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"Gabriel QA\",\r\n  \"email\": \"gabriel.qa{{$timestamp}}@teste.com\",\r\n  \"password\": \"123456\",\r\n  \"administrador\": \"true\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/usuarios/{{idUsuario}}",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"usuarios",
+										"{{idUsuario}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Editar Usuário - Novo cadastro",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code é 201\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Mensagem de cadastro com sucesso\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.message).to.eql(\"Cadastro realizado com sucesso\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"Gabriel QA {{$randomInt}}\",\r\n  \"email\": \"gabriel.qa{{$timestamp}}@teste.com\",\r\n  \"password\": \"123456\",\r\n  \"administrador\": \"true\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/usuarios/1234123412341234",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"usuarios",
+										"1234123412341234"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deletar usuário",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code é 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Mensagem de exclusão\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.message).to.eql(\"Registro excluído com sucesso\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{local}}/usuarios/{{idUsuario}}",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"usuarios",
+										"{{idUsuario}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Cenários Negativos",
+					"item": [
+						{
+							"name": "Cadastrar Usuário - Cenário negativo 1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Esperado erro 400 (Bad Request) pela falta do campo obrigatório de email\r",
+											"pm.test(\"Status code é 400 - Falha esperada\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Validar mensagem de erro\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.email).to.eql(\"email é obrigatório\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"Gabriel QA\",\r\n  \"password\": \"123456\",\r\n  \"administrador\": \"true\"\r\n}\r\n"
+								},
+								"url": {
+									"raw": "{{local}}/usuarios",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"usuarios"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cadastrar Usuário - Cenário negativo 2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Esperado erro 400 (Bad Request) pelo uso de email já usado\r",
+											"pm.test(\"Status code é 400 - Falha esperada\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Validar mensagem de erro\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.message).to.eql(\"Este email já está sendo usado\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"Gabriel QA\",\r\n  \"email\": \"gabriel.qa1767014942@teste.com\",\r\n  \"password\": \"123456\",\r\n  \"administrador\": \"true\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/usuarios",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"usuarios"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Buscar usuário por ID - Cenário negativo 1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Esperado erro 400 (Bad Request) por ID estar com quantidade incorreta de caracteres\r",
+											"pm.test(\"Status code é 400 - Falha esperada\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Validar mensagem de erro\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.id).to.eql(\"id deve ter exatamente 16 caracteres alfanuméricos\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{local}}/usuarios/AAAAAAAAAAAAAAAAA",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"usuarios",
+										"AAAAAAAAAAAAAAAAA"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Buscar usuário por ID - Cenário negativo 2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Esperado erro 400 (Bad Request) por não existir usuário com o ID informado\r",
+											"pm.test(\"Status code é 400 - Falha esperada\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Validar mensagem de erro\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.message).to.eql(\"Usuário não encontrado\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{local}}/usuarios/AAAAAAAAAAAAAAAA",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"usuarios",
+										"AAAAAAAAAAAAAAAA"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Editar Usuário Existente - Cenário negativo 1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Esperado erro 400 (Bad Request) pelo uso de email já usado\r",
+											"pm.test(\"Status code é 400 - Falha esperada\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Validar mensagem de erro\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.message).to.eql(\"Este email já está sendo usado\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"Gabriel QA {{$randomInt}}\",\r\n  \"email\": \"gabriel.qa1767014942@teste.com\",\r\n  \"password\": \"123456\",\r\n  \"administrador\": \"true\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/usuarios/66l1Yq7k3PBFb1ZH",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"usuarios",
+										"66l1Yq7k3PBFb1ZH"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Editar Usuário Existente - Cenário negativo 2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Esperado erro 400 (Bad Request) pela falta do campo obrigatório de email\r",
+											"pm.test(\"Status code é 400 - Falha esperada\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Validar mensagem de erro\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.email).to.eql(\"email é obrigatório\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"Gabriel QA {{$randomInt}}\",\r\n  \"password\": \"123456\",\r\n  \"administrador\": \"true\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/usuarios/66l1Yq7k3PBFb1ZH",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"usuarios",
+										"66l1Yq7k3PBFb1ZH"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Editar Usuário Novo Cadastro - Cenário negativo 1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Esperado erro 400 (Bad Request) pelo uso de email já usado\r",
+											"pm.test(\"Status code é 400 - Falha esperada\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Validar mensagem de erro\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.message).to.eql(\"Este email já está sendo usado\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"Gabriel QA {{$randomInt}}\",\r\n  \"email\": \"gabriel.qa1767014942@teste.com\",\r\n  \"password\": \"123456\",\r\n  \"administrador\": \"true\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/usuarios/6Al1YA7k3PAFA1ZH",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"usuarios",
+										"6Al1YA7k3PAFA1ZH"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Editar Usuário Novo cadastro - Cenário negativo 2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Esperado erro 400 (Bad Request) pela falta do campo obrigatório de email\r",
+											"pm.test(\"Status code é 400 - Falha esperada\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Validar mensagem de erro\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.email).to.eql(\"email é obrigatório\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"Gabriel QA {{$randomInt}}\",\r\n  \"password\": \"123456\",\r\n  \"administrador\": \"true\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/usuarios/66l1Yq7kAPBAb1ZA",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"usuarios",
+										"66l1Yq7kAPBAb1ZA"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deletar usuário - Cenário negativo 1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code é 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Mensagem de exclusão\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.message).to.eql(\"Não é permitido excluir usuário com carrinho cadastrado\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{local}}/usuarios/0uxuPY0cbmQhpEz1",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"usuarios",
+										"0uxuPY0cbmQhpEz1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const resposta = pm.response.json();\r",
+							"\r",
+							"pm.globals.set(\"token\", resposta.authorization);"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"gabriel_qa@ebacteste.com.br\",\r\n    \"password\":\"teste\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}/login",
+					"host": [
+						"{{local}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "idUsuario",
+			"value": ""
+		},
+		{
+			"key": "local",
+			"value": "http://localhost:3000"
+		}
+	]
+}
